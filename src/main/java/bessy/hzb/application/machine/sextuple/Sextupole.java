@@ -17,7 +17,7 @@ public class Sextupole {
 	private Long id;
 
 	private Double method;
-	private String n;
+	private int n;
 	private String name;
 	private Double length;
 	private Double strength;
@@ -31,7 +31,7 @@ public class Sextupole {
 	public Sextupole() {
 
 	}
-	public Sextupole(String name,String type, Double strength, Double length, String n) {
+	public Sextupole(String name,String type, Double strength, Double length, int n) {
 		super();
 		this.n = n;
 		this.name = name;
@@ -55,11 +55,11 @@ public class Sextupole {
 		this.method = method;
 	}
 
-	public String getN() {
+	public int getN() {
 		return n;
 	}
 
-	public void setN(String n) {
+	public void setN(int n) {
 		this.n = n;
 	}
 

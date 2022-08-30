@@ -14,11 +14,10 @@ public class Quadrupole {
 	// example of a Quadrupole is: ID: q3m2d1r, L = 0.25, K = -2.02322285, N =
 	// Nquad, Method = 4;
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "quadrupole_id")
 	private Long id;
-	private Double method;
-	private String n;
+	private int method;
+	private int n;
 	private String name;
 	private Double length;
 	private Double strength;
@@ -45,19 +44,19 @@ public class Quadrupole {
 		this.length = length;
 	}
 
-	public Double getMethod() {
+	public int getMethod() {
 		return method;
 	}
 
-	public void setMethod(Double method) {
+	public void setMethod(int method) {
 		this.method = method;
 	}
 
-	public String getN() {
+	public int getN() {
 		return n;
 	}
 
-	public void setN(String n) {
+	public void setN(int n) {
 		this.n = n;
 	}
 

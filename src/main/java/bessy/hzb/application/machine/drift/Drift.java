@@ -11,14 +11,13 @@ import java.util.Set;
 @Table(name = "DRIFT")
 public class Drift {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column( name = "drift_id")
 	private Long id;
 	private String name;
 	private Double length;
 	private Double strength;
 	private String type;
-
+	private  int n;
 	public Drift() {
 
 	}
@@ -73,5 +72,13 @@ public class Drift {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public int getN() {
+		return n;
+	}
+
+	public void setN(int n) {
+		this.n = n;
 	}
 }

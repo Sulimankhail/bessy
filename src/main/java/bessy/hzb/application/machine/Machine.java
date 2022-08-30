@@ -5,6 +5,7 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import bessy.hzb.application.machine.beamPosition.BeamPositions;
 import bessy.hzb.application.machine.dipole.Dipole;
 import bessy.hzb.application.machine.drift.Drift;
 import bessy.hzb.application.machine.quadrupole.Quadrupole;
@@ -43,8 +44,16 @@ public class Machine {
     joinColumns = @JoinColumn(name = "machine_id"), 
     inverseJoinColumns = @JoinColumn(name = "drift_id"))   
 	private Set<Drift> drifts = new HashSet<>();
+
+	public Set<Sequencer> getSequences() {
+		return sequences;
+	}
+
 	@OneToMany
 	private Set<Sequencer> sequences = new HashSet<>();
+
+	@OneToMany
+	private List<BeamPositions> beamPositions = new ArrayList<>();
 	private String name;
 	private String description;
 	private Double length = 0.0;
@@ -132,5 +141,15 @@ public class Machine {
 		sequences.add(sequencer);
 	}
 
+	public void addBeamPositions(BeamPositions beamPS){
+		beamPositions.add(beamPS);
+	}
 
+	public List<BeamPositions> getBeamPositions() {
+		return beamPositions;
+	}
+
+	public void setBeamPositions(List<BeamPositions> beamPositions) {
+		this.beamPositions = beamPositions;
+	}
 }

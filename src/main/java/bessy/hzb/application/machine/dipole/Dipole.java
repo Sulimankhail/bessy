@@ -13,13 +13,12 @@ public class Dipole {
 
 	//example of Bending or Diploe ID: bm2d1r11 , L = 0.152, T = 2.000023775463165, T1 = 5.625000000000000, T2 = 0.000000000000000, K = 0.0, N = Nbend, Method = 4;
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column( name = "dipole_id")
 	private Long id;
-	private String t;
-	private String t1;
-	private String t2;
-	private String n;
+	private Double t;
+	private Double t1;
+	private Double t2;
+	private int n;
 	private int method;
 	private String name;
 	private Double length;
@@ -31,7 +30,7 @@ public class Dipole {
 
 	
     public Dipole() {super();}
-	public Dipole(Double length, String t, String t1, String t2, String n, Double strength, int method, String name, String type) {
+	public Dipole(Double length, Double t, Double t1, Double t2, int n, Double strength, int method, String name, String type) {
 		super();
 		this.t = t;
 		this.t1 = t1;
@@ -52,35 +51,35 @@ public class Dipole {
 		this.id = id;
 	}
 
-	public String getT() {
+	public Double getT() {
 		return t;
 	}
 
-	public void setT(String t) {
+	public void setT(Double t) {
 		this.t = t;
 	}
 
-	public String getT1() {
+	public Double getT1() {
 		return t1;
 	}
 
-	public void setT1(String t1) {
+	public void setT1(Double t1) {
 		this.t1 = t1;
 	}
 
-	public String getT2() {
+	public Double getT2() {
 		return t2;
 	}
 
-	public void setT2(String t2) {
+	public void setT2(Double t2) {
 		this.t2 = t2;
 	}
 
-	public String getN() {
+	public int getN() {
 		return n;
 	}
 
-	public void setN(String n) {
+	public void setN(int n) {
 		this.n = n;
 	}
 

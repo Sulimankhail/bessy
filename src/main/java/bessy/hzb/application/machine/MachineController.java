@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,6 +53,13 @@ public class MachineController {
 	@RequestMapping(method=RequestMethod.POST, value="/machines")
 	public void addMachine(@RequestBody Machine machinePayload) {
 		machineService.addMachine(machinePayload);
+	}
+
+	// add a machine
+	@RequestMapping(method=RequestMethod.POST
+			, value="/machines/{machineId}/calculate")
+	public void calculateBeamPosition(@PathVariable Long machineId) throws JsonProcessingException {
+		machineService.calculateBeamPosition(machineId);
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT, value ="/machine/{id}")

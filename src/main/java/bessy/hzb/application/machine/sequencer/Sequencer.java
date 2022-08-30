@@ -5,27 +5,41 @@ import bessy.hzb.application.machine.Machine;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "SEQUENCER")
 public class Sequencer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Long deviceId;
-	private String deviceType;
+	private String type;
 	@ManyToOne(fetch= FetchType.LAZY)
 	@JoinColumn(name="machine_Id")
 	private Machine machine;
-
+	private String name;
+	private Double l;
+	private int n;
 
 	private Double locationStart;
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	private Double locationEnd;
 
 	// USAGE of DTO Pattern to store the sequencer for machine
-	public Sequencer(Long deviceId, Double locationStart, Double locationEnd, String deviceType) {
+	public Sequencer(Long deviceId, Double locationStart, Double locationEnd, String type, String name, Double l, int n) {
 		this.deviceId = deviceId;
 		this.locationStart = locationStart;
 		this.locationEnd = locationEnd;
-		this.deviceType = deviceType;
+		this.type = type;
+		this.name = name;
+		this.l = l;
+		this.n = n;
 	}
 
 	public Sequencer() {
@@ -68,11 +82,27 @@ public class Sequencer {
 		return id;
 	}
 
-	public String getDeviceType() {
-		return deviceType;
+	public String getType() {
+		return type;
 	}
 
-	public void setDeviceType(String deviceType) {
-		this.deviceType = deviceType;
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Double getL() {
+		return l;
+	}
+
+	public void setL(Double l) {
+		this.l = l;
+	}
+
+	public int getN() {
+		return n;
+	}
+
+	public void setN(int n) {
+		this.n = n;
 	}
 }
