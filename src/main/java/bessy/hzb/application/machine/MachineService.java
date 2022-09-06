@@ -112,8 +112,9 @@ public class MachineService {
 		// call the controller from python to compute beam position
 		Machine machine  = getMachine(machineId);
 		RestTemplate restTemplate = new RestTemplate();
+		List<ElementPosition> elementPositionList =new ArrayList<>();
 		// initialize with null/zero values
-		ElementPosition elementPosition = new ElementPosition("",0.0,"",0, 0.0,0.0,0.0,0.0,0.0,0.0);
+		ElementPosition elementPosition = new ElementPosition("",0.0,"",0, 45,-13,0.0,0.0,0.0,0.0);
 		List<BeamPositions> beamPositionsSet = new ArrayList<>();
 //		List<BeamPositions> beamPositionsSet = new ArrayList<>();
 		int y =0;
@@ -143,13 +144,18 @@ public class MachineService {
 				y++;
 			}
 	//		Store the result in DB
-			elementPositionService.addElementPositionSet( elementPositionSet);
+			elementPositionList.addAll(elementPositionSet);
+//			elementPositionService.addElementPositionSet( elementPositionSet);
 			BeamPositions beamPositions = new BeamPositions();
 			beamPositions.setElementPositions(elementPositionSet);
 			beamPositionsSet.add(x,beamPositions);
-			beamPositionsService.addBeamPositions(beamPositions);
+//			beamPositionsService.addBeamPositions(beamPositions);
 		}
+		elementPositionService.addElementPositionSet( elementPositionList);
+		beamPositionsService.addBeamPositions(beamPositionsSet);
+
 		machine.setBeamPositions(beamPositionsSet);
+		updateMachine(machine);
 	}
 }
  

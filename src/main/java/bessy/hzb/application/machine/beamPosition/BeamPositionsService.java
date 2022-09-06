@@ -24,8 +24,8 @@ public class BeamPositionsService {
     }
 
 
-    public void addBeamPositions(BeamPositions beamPositionsPayload) {
-        beamPositionsRepository.save(beamPositionsPayload);
+    public void addBeamPositions(List<BeamPositions> beamPositionsPayload) {
+        beamPositionsRepository.saveAll(beamPositionsPayload);
     }
 
 
