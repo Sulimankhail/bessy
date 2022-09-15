@@ -8,8 +8,9 @@ import java.util.UUID;
 @Entity
 public class ElementPosition {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private String id;
+    private Long id;
     private Double l;
     private int n;
     private String name;
@@ -30,7 +31,6 @@ public class ElementPosition {
         this.py = py;
         this.dt = dt;
         this.ct = ct;
-        getId();
     }
 
     public Double getL() {
@@ -45,23 +45,18 @@ public class ElementPosition {
     public void setN(int n) {
         this.n = n;
     }
-    public String getId() {
-        if(id == null){
-            id= UUID.randomUUID().toString();
-        }
+    public Long getId() {
         return id;
     }
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     public ElementPosition(Double l, int n) {
         this.l = l;
         this.n = n;
-        getId();
     }
     public ElementPosition() {
-        getId();
     }
 
     public String getName() {

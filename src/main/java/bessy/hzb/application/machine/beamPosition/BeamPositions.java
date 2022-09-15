@@ -9,18 +9,16 @@ import java.util.*;
 public class BeamPositions {
     @Id
     @Column(name = "id")
-    private String BeamPositionId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long BeamPositionId;
 
     @OneToMany
     private List<ElementPosition> elementPositions = new ArrayList<>();
 
-    public String getId() {
-        if(BeamPositionId == null){
-            BeamPositionId=UUID.randomUUID().toString();
-        }
+    public Long getId() {
         return BeamPositionId;
     }
-    public void setId(String id){
+    public void setId(Long id){
         this.BeamPositionId = id;
     }
 
@@ -28,7 +26,6 @@ public class BeamPositions {
         return elementPositions;
     }
     public BeamPositions() {
-        getId();
     }
 
 
