@@ -18,7 +18,7 @@ public class ElementPositionService {
         return elementPosition;
     }
 
-    public ElementPosition getElementPosition(String id) {
+    public ElementPosition getElementPosition(Long id) {
         return elementPositionRepository.findById(id).get();
     }
 

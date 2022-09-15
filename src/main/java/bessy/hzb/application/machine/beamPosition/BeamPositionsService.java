@@ -20,7 +20,7 @@ public class BeamPositionsService {
         return beamPositions;
     }
 
-    public BeamPositions getBeamPositions(String id) {
+    public BeamPositions getBeamPositions(Long id) {
         return beamPositionsRepository.findById(id).get();
     }
 
