@@ -1,13 +1,15 @@
 package bessy.hzb.application.machine.elementPosition;
 
+import bessy.hzb.application.machine.beamPosition.BeamPositions;
+
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 public class ElementPosition {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
+    private String id;
     private Double l;
     private int n;
     private String name;
@@ -18,7 +20,6 @@ public class ElementPosition {
     private Double py;
     private Double dt;
     private Double ct;
-
     public ElementPosition(String name, Double l, String type, int n, double x, double px, double y, double py, double dt, double ct) {
         this.name = name;
         this.l = l;
@@ -29,7 +30,7 @@ public class ElementPosition {
         this.py = py;
         this.dt = dt;
         this.ct = ct;
-
+        getId();
     }
 
     public Double getL() {
@@ -44,18 +45,23 @@ public class ElementPosition {
     public void setN(int n) {
         this.n = n;
     }
-    public Long getId() {
+    public String getId() {
+        if(id == null){
+            id= UUID.randomUUID().toString();
+        }
         return id;
     }
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
     public ElementPosition(Double l, int n) {
         this.l = l;
         this.n = n;
+        getId();
     }
     public ElementPosition() {
+        getId();
     }
 
     public String getName() {

@@ -18,7 +18,7 @@ public class ElementPositionService {
         return elementPosition;
     }
 
-    public ElementPosition getElementPosition(Long id) {
+    public ElementPosition getElementPosition(String id) {
         return elementPositionRepository.findById(id).get();
     }
 
@@ -28,8 +28,5 @@ public class ElementPositionService {
     }
     public void addElementPositionSet(List<ElementPosition> elementPositionPayload) {
         elementPositionRepository.saveAll(elementPositionPayload);
-//        elementPositionPayload.forEach((ElementPosition e) -> {
-//            elementPositionRepository.save(e);
-//        });
     }
 }

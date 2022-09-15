@@ -45,12 +45,12 @@ public class Machine {
     inverseJoinColumns = @JoinColumn(name = "drift_id"))   
 	private Set<Drift> drifts = new HashSet<>();
 
-	public Set<Sequencer> getSequences() {
+	public List<Sequencer> getSequences() {
 		return sequences;
 	}
 
 	@OneToMany
-	private Set<Sequencer> sequences = new HashSet<>();
+	private List<Sequencer> sequences = new ArrayList<>();
 
 	@OneToMany
 	private List<BeamPositions> beamPositions = new ArrayList<>();

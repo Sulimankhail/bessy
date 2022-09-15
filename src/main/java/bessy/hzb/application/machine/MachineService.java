@@ -1,5 +1,6 @@
 package bessy.hzb.application.machine;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 import bessy.hzb.application.machine.beamPosition.BeamPositions;
@@ -114,7 +115,7 @@ public class MachineService {
 		RestTemplate restTemplate = new RestTemplate();
 		List<ElementPosition> elementPositionList =new ArrayList<>();
 		// initialize with null/zero values
-		ElementPosition elementPosition = new ElementPosition("",0.0,"",0, 45,-13,0.0,0.0,0.0,0.0);
+		ElementPosition elementPosition; //= new ElementPosition("",0.0,"",0, 45,-13,0.0,0.0,0.0,0.0);
 		List<BeamPositions> beamPositionsSet = new ArrayList<>();
 //		List<BeamPositions> beamPositionsSet = new ArrayList<>();
 		int y =0;
@@ -122,13 +123,14 @@ public class MachineService {
 			List<ElementPosition> elementPositionSet =new ArrayList<>();
 			y =0;
 			for( Sequencer s :  machine.getSequences()){
+				elementPosition = new ElementPosition("", 0.0, "", 0, 45, -13, 0.0, 0.0, 0.0, 0.0);
 
 				//get the element info from the sequencer
 				elementPosition.setName(s.getName());
 				elementPosition.setL(s.getL());
 				elementPosition.setType(s.getType());
 				elementPosition.setN(s.getN());
-				if(elementPositionSet.size()>0){
+				if (elementPositionSet.size() > 0) {
 					// add ps values (the current position should be returned)
 					// @INFO: the current position can be entered manually or through some input in the future
 					// the current position variables are: x, px , y , px, delta, charlieTango CT
@@ -139,11 +141,21 @@ public class MachineService {
 					elementPosition.setDt(elementPositionSet.stream().reduce((prev, next) -> next).orElse(null).getDt());
 					elementPosition.setCt(elementPositionSet.stream().reduce((prev, next) -> next).orElse(null).getCt());
 				}
-				elementPosition= restTemplate.postForObject("http://127.0.0.1:5000/propagate", elementPosition, elementPosition.getClass());
-				elementPositionSet.add(y,elementPosition);
+//				elementPosition= restTemplate.postForObject("http://127.0.0.1:5000/propagate", elementPosition, elementPosition.getClass());
+				double[] arr;//= new int[];
+				double[] ps = {elementPosition.getX(), elementPosition.getPx(), elementPosition.getY(), elementPosition.getPy(), elementPosition.getDt(), elementPosition.getCt(),};
+				arr = new NativeBridgeWithCPP().sayHello(ps, s.getName(), s.getType(), s.getL());
+				elementPosition.setX(arr[0]);
+				elementPosition.setPx(arr[1]);
+				elementPosition.setY(arr[2]);
+				elementPosition.setPy(arr[3]);
+				elementPosition.setDt(arr[4]);
+				elementPosition.setCt(arr[5]);
+				elementPositionSet.add(y, elementPosition);
 				y++;
+//				System.out.println();
 			}
-	//		Store the result in DB
+//			Store the result in DB
 			elementPositionList.addAll(elementPositionSet);
 //			elementPositionService.addElementPositionSet( elementPositionSet);
 			BeamPositions beamPositions = new BeamPositions();
@@ -153,9 +165,9 @@ public class MachineService {
 		}
 		elementPositionService.addElementPositionSet( elementPositionList);
 		beamPositionsService.addBeamPositions(beamPositionsSet);
-
 		machine.setBeamPositions(beamPositionsSet);
 		updateMachine(machine);
 	}
 }
+
  

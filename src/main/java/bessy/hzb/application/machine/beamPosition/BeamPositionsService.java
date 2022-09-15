@@ -1,5 +1,6 @@
 package bessy.hzb.application.machine.beamPosition;
 
+import bessy.hzb.application.machine.elementPosition.ElementPosition;
 import bessy.hzb.application.machine.sequencer.Sequencer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class BeamPositionsService {
         return beamPositions;
     }
 
-    public BeamPositions getBeamPositions(Long id) {
+    public BeamPositions getBeamPositions(String id) {
         return beamPositionsRepository.findById(id).get();
     }
 
